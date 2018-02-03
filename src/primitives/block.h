@@ -7,6 +7,8 @@
 #define BITCOIN_PRIMITIVES_BLOCK_H
 
 #include "primitives/transaction.h"
+#include "crypto/scrypt.h"
+#include "crypto/Lyra2RE/Lyra2RE.h"
 #include "serialize.h"
 #include "uint256.h"
 
@@ -62,7 +64,7 @@ public:
 
     uint256 GetHash() const;
 
-    uint256 GetPoWHash() const;
+    uint256 GetPoWHash(bool bLyra2REv2 = false) const;
 
     int64_t GetBlockTime() const
     {
@@ -131,7 +133,10 @@ struct CBlockLocator
 
     CBlockLocator() {}
 
-    CBlockLocator(const std::vector<uint256>& vHaveIn) : vHave(vHaveIn) {}
+    CBlockLocator(const std::vector<uint256>& vHaveIn)
+    {
+        vHave = vHaveIn;
+    }
 
     ADD_SERIALIZE_METHODS;
 
@@ -153,5 +158,8 @@ struct CBlockLocator
         return vHave.empty();
     }
 };
+
+/** Compute the consensus-critical block weight (see BIP 141). */
+int64_t GetBlockWeight(const CBlock& tx);
 
 #endif // BITCOIN_PRIMITIVES_BLOCK_H

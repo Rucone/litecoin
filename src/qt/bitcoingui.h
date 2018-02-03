@@ -31,6 +31,8 @@ class WalletModel;
 class HelpMessageDialog;
 class ModalOverlay;
 
+class CWallet;
+
 QT_BEGIN_NAMESPACE
 class QAction;
 class QProgressBar;
@@ -109,6 +111,7 @@ private:
     QAction *changePassphraseAction;
     QAction *aboutQtAction;
     QAction *openRPCConsoleAction;
+    QAction *showBackupsAction;
     QAction *openAction;
     QAction *showHelpMessageAction;
 
@@ -168,7 +171,7 @@ public Q_SLOTS:
                             @see CClientUIInterface::MessageBoxFlags
        @param[in] ret       pointer to a bool that will be modified to whether Ok was clicked (modal only)
     */
-    void message(const QString &title, const QString &message, unsigned int style, bool *ret = nullptr);
+    void message(const QString &title, const QString &message, unsigned int style, bool *ret = NULL);
 
 #ifdef ENABLE_WALLET
     /** Set the encryption status as shown in the UI.

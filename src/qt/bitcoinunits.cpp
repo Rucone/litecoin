@@ -42,7 +42,7 @@ QString BitcoinUnits::name(int unit)
     {
     case BTC: return QString("UDON");
     case mBTC: return QString("mUDON");
-    case uBTC: return QString("μUDON");
+    case uBTC: return QString::fromUtf8("μUDON");
     default: return QString("???");
     }
 }
